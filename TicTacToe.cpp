@@ -33,13 +33,16 @@ public:
 
 bool checkWinner(TicTacToe *players);
 void printBoard(TicTacToe *players);
+void printHorizontalBoundary();
 void printHorizontalPartition();
+void printEmptyHorVerPartition();
 void printVerticalPartition();
 bool checkHorizontal(int playerId, int position);
 bool checkVertical(int playerId, int position);
 bool checkDiagonal(int playerId, int position);
 bool noPosition(TicTacToe *players);
 bool isOccupied(int position);
+
 
 
 int main(){
@@ -135,16 +138,24 @@ bool checkWinner(TicTacToe *players){
 
 }
 void printBoard(TicTacToe *players){
-    printHorizontalPartition();
+    // cout << "\033[1;47m";//white background
+    printHorizontalBoundary();
+    printEmptyHorVerPartition();
+
     for (int i = 0; i < 9 ; i++){
+            
 
             printVerticalPartition();
             
             if(scoreCard[i]!=0){
+                cout << "\033[1;30m";//black font for taken
                 cout<<"P"<<scoreCard[i]<<"   ";
+                cout<<"\033[0m";
             }
             else{
+                cout << "\033[1;34m";//blue font for not taken
                 cout<<i+1<<"    ";
+                cout<<"\033[0m";
             }
             
             
@@ -152,17 +163,36 @@ void printBoard(TicTacToe *players){
             if((i+1) %3 ==0 ){
                 printVerticalPartition();
                 cout<<"\n";
-                printHorizontalPartition();
+                printEmptyHorVerPartition();
+                
+                if(i!=8)
+                    printHorizontalPartition();
+                else
+                    printHorizontalBoundary();
              
             }
     }
-
+    // cout<<"\033[0m";
+}
+void printHorizontalBoundary(){
+    cout << "\033[1;31m";//red lines
+    cout<<"-------------------------------"<<endl;
+    cout<<"\033[0m";
 }
 void printHorizontalPartition(){
+    cout << "\033[1;31m";//red lines
     cout<<"----------+---------+----------"<<endl;
+    cout<<"\033[0m";
 }
 void printVerticalPartition(){
+    cout << "\033[1;31m";//red lines
     cout<<"|    ";
+    cout<<"\033[0m";
+}
+void printEmptyHorVerPartition(){
+    cout << "\033[1;31m";//red lines
+    cout<<"|         |         |         |\n";
+    cout<<"\033[0m";
 }
 
 bool checkHorizontal(int playerId, int position){
@@ -318,11 +348,17 @@ bool checkDiagonal(int playerId, int position){
         return false;
 } 
 // ----------+---------+----------
-// |    1    |    2    |    3    |    
+// |         |         |         |
+// |    1    |    2    |    3    |  
+// |         |         |         |
 // ----------+---------+----------
+// |         |         |         |
 // |    4    |    5    |    6    |
+// |         |         |         |
 // ----------+---------+----------
+// |         |         |         |
 // |    7    |    8    |    9    |
+// |         |         |         |
 // ----------+---------+----------
 bool noPosition(TicTacToe *players){
     bool noPosition = true;
@@ -339,3 +375,4 @@ bool isOccupied(int position){
 
     return false;
 }
+
