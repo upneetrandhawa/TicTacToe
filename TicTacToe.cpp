@@ -1,10 +1,13 @@
 #include <unistd.h>
 #include <string>
 #include <iostream>
-
-
+#include <cstdlib>
+#include <ctime>
+#include <vector>
 using namespace std;
+
 int winnerId = 0;
+int gameType;
 
 int scoreCard[9] = {0};
 
@@ -42,60 +45,32 @@ bool checkVertical(int playerId, int position);
 bool checkDiagonal(int playerId, int position);
 bool noPosition(TicTacToe *players);
 bool isOccupied(int position);
-
+int randomSlot();
+void multiplayerGame(TicTacToe *players);
+void singlePlayerEasy(TicTacToe *players);
+void singlePlayerDifficult(TicTacToe *players);
+int gameOptions();
 
 
 int main(){
     cout<<"------------------TIC TAC TOE------------------"
             <<"\n\n"<<endl;
+
     TicTacToe *players = new TicTacToe[2];
-    string nameBuf;
-    cout << "Enter Player Name 1: ";
-    cin >> nameBuf;
-    players[0].setPlayerName(nameBuf);
-    cout << "Enter Player Name 2: ";
-    cin >> nameBuf;
-    players[1].setPlayerName(nameBuf);
 
-    printBoard(players);
-    bool winner = false;
+    gameType = gameOptions();
 
-    while (!winner && !noPosition(players)){
-
-        for (int i = 0; i<2 && winner != true; i++){
-            int val;
-            cout<<"Player"<<i+1<<" "<< players[i].getPlayerName()<<" input an empty position: ";
-            cin >> val;
-
-            while(isOccupied(val)){
-                cout<<"Position already taken!!"<<endl;
-                cout<<"Player"<<i+1<<" "<< players[i].getPlayerName()<<" input an empty position: ";
-                cin >> val;
-            }
-
-            scoreCard[val-1] = i+1;
-
-            players[i].setCurrentPlayer(true);
-
-            if(i==1){
-                players[i-1].setCurrentPlayer(false);
-            }
-            else{
-                players[i+1].setCurrentPlayer(false);
-            }
-
-            printBoard(players);
-            winner = checkWinner(players);
-;       }
-
+    switch(gameType){
+        case 1: multiplayerGame(players); 
+        case 2: singlePlayerEasy(players);
+        case 3: singlePlayerDifficult(players);
     }
-    if (winnerId!=0)
-    cout<<"\n\n------------------Player "<<players[winnerId-1].getPlayerName()
-        <<" WON!!!------------------\n\n"<<endl;
 
-    else if (noPosition(players))
-        cout<<"\n\n------------------Nobody WON------------------\n\n"<<endl;
 
+
+
+    
+    
 
 return 1;
 }
@@ -105,8 +80,9 @@ bool checkWinner(TicTacToe *players){
         if(players[0].isCurrentPlayer()){
             currPlayer = 1;
         }
-        else
+        else 
             currPlayer = 2;
+        
 
     for (int pos = 0 ; pos < 9 ; pos++){
         
@@ -376,3 +352,136 @@ bool isOccupied(int position){
     return false;
 }
 
+int randomSlot(){
+    vector <int> emptySlots;
+
+    for(int i = 0; i < 9 ; i++){
+        if(scoreCard[i]==0){
+            emptySlots.push_back(i+1);
+        }
+    }
+    srand(time(0));
+    int slot = rand() % emptySlots.size();
+
+    return emptySlots[slot];
+
+}
+void multiplayerGame(TicTacToe *players){
+    cout<<"\n----Starting Multiplayer game----\n\n";
+    string nameBuf;
+    cout << "Enter Player Name 1: ";
+    cin >> nameBuf;
+    players[0].setPlayerName(nameBuf);
+    cout << "Enter Player Name 2: ";
+    cin >> nameBuf;
+    players[1].setPlayerName(nameBuf);
+
+    printBoard(players);
+    bool winner = false;
+
+    while (!winner && !noPosition(players)){
+
+        for (int i = 0; i<2 && winner != true && !noPosition(players) ; i++){
+            int val;
+            cout<<"Player"<<i+1<<" "<< players[i].getPlayerName()<<" input an empty position: ";
+            cin >> val;
+
+            while(isOccupied(val)){
+                cout<<"Position already taken!!"<<endl;
+                cout<<"Player"<<i+1<<" "<< players[i].getPlayerName()<<" input an empty position: ";
+                cin >> val;
+            }
+
+            scoreCard[val-1] = i+1;
+
+            players[i].setCurrentPlayer(true);
+
+            if(i==1){
+                players[i-1].setCurrentPlayer(false);
+            }
+            else{
+                players[i+1].setCurrentPlayer(false);
+            }
+
+            printBoard(players);
+            winner = checkWinner(players);
+       }
+
+    }
+    if (winnerId!=0)
+    cout<<"\n\n------------------Player "<<players[winnerId-1].getPlayerName()
+        <<" WON!!!------------------\n\n"<<endl;
+
+    else if (noPosition(players))
+        cout<<"\n\n------------------Nobody WON------------------\n\n"<<endl;
+
+
+}
+void singlePlayerEasy(TicTacToe *players){
+    cout<<"\n----Single Player [Easy level]----\n\n";
+
+    string nameBuf;
+    cout << "Enter Player Name 1: ";
+    cin >> nameBuf;
+    players[0].setPlayerName(nameBuf);
+    
+    players[1].setPlayerName("Computer");
+    cout << "Player 2 \"Computer\"\n\n";
+
+    printBoard(players);
+    bool winner = false;
+
+    while (!winner && !noPosition(players)){
+
+        for (int i = 0; i<2 && winner != true && !noPosition(players); i++){
+            int val;
+
+            if(i==0){//for our player
+                
+                cout<<"Player"<<i+1<<" "<< players[i].getPlayerName()<<" input an empty position: ";
+                cin >> val;
+
+                while(isOccupied(val)){
+                    cout<<"Position already taken!!"<<endl;
+                    cout<<"Player"<<i+1<<" "<< players[i].getPlayerName()<<" input an empty position: ";
+                    cin >> val;
+                }
+                
+                players[i].setCurrentPlayer(true);
+                players[i+1].setCurrentPlayer(false);
+            }
+
+            else if(i==1){//for computer
+                val = randomSlot();
+                cout<<"Player Computer chose position "<<val<<endl;
+
+                
+                players[i].setCurrentPlayer(true);
+                players[i-1].setCurrentPlayer(false);
+            }
+            scoreCard[val-1] = i+1;
+            printBoard(players);
+            winner = checkWinner(players);
+
+        }
+
+    }
+    if (winnerId!=0)
+        cout<<"\n\n------------------Player "<<players[winnerId-1].getPlayerName()
+                <<" WON!!!------------------\n\n"<<endl;
+        
+    else if (noPosition(players))
+        cout<<"\n\n------------------Nobody WON------------------\n\n"<<endl;
+}
+
+void singlePlayerDifficult(TicTacToe *players){
+
+}
+int gameOptions(){
+    int val;
+    cout<<"\n\nEnter 1 for two player game\n"
+            "      2 for Single Player Easy Level\n"
+            "      3 for Single Player Difficult Level\n"<<endl;
+    cin >> val;
+    return val;
+}
