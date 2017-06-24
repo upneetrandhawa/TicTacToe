@@ -4,6 +4,8 @@
 #include <cstdlib>
 #include <ctime>
 #include <vector>
+#include <unistd.h>
+
 using namespace std;
 
 int winnerId = 0;
@@ -50,6 +52,7 @@ void multiplayerGame(TicTacToe *players);
 void singlePlayerEasy(TicTacToe *players);
 void singlePlayerDifficult(TicTacToe *players);
 int gameOptions();
+void loadingCursor();
 
 
 int main(){
@@ -124,7 +127,7 @@ void printBoard(TicTacToe *players){
             printVerticalPartition();
             
             if(scoreCard[i]!=0){
-                cout << "\033[1;30m";//black font for taken
+                cout << "\033[1;33m";//black font for taken
                 cout<<"P"<<scoreCard[i]<<"   ";
                 cout<<"\033[0m";
             }
@@ -453,6 +456,9 @@ void singlePlayerEasy(TicTacToe *players){
 
             else if(i==1){//for computer
                 val = randomSlot();
+                cout<<"Player Computer deciding... ";
+                //usleep(2000000 );
+                loadingCursor();
                 cout<<"Player Computer chose position "<<val<<endl;
 
                 
@@ -486,161 +492,178 @@ int gameOptions(){
     return val;
 }
 
-void score(){
-    int maxScore = 0;
-    int maxScoreSlot = randomSlot();
+// void score(){
+//     int maxScore = 0;
+//     int maxScoreSlot = randomSlot();
 
-    vector <int> emptySlots;
+//     vector <int> emptySlots;
 
-    for(int i = 0; i < 9 ; i++){
-        if(scoreCard[i]==0){
-            emptySlots.push_back(i+1);
-        }
-    }
+//     for(int i = 0; i < 9 ; i++){
+//         if(scoreCard[i]==0){
+//             emptySlots.push_back(i+1);
+//         }
+//     }
     
 
 
-    for (int i = 0 ; i < emptySlots.size() ; i++){
+//     for (int i = 0 ; i < emptySlots.size() ; i++){
 
-        int scoreCardClone[9] = {0};
-        for(int j = 0 ; j < 9 ; j++)
-          scoreCardClone[j] = scoreCard[j];
+//         int scoreCardClone[9] = {0};
+//         for(int j = 0 ; j < 9 ; j++)
+//           scoreCardClone[j] = scoreCard[j];
 
-        scoreCardClone[emptySlots[i]-1] = 1;
+//         scoreCardClone[emptySlots[i]-1] = 1;
 
-        int scoreHorizontal(scoreCardClone,emptySlots[i]-1);
+//         int scoreHorizontal(scoreCardClone,emptySlots[i]-1);
 
-    }
-}
+//     }
+// }
 
-int scoreHorizontal(int scoreCardClone, int current){
-    int maxHorScore = 1;
+// int scoreHorizontal(int scoreCardClone, int current){
+//     int maxHorScore = 1;
 
 
-    int location = (current+1)%3;
+//     int location = (current+1)%3;
 
-    if (location == 1) {
-        if (scoreCardClone[position+1] == playerId){
-            if (scoreCardClone[position+2] == playerId){
-                maxHorScore = 3;
-            }
-            else 
-                maxHorScore = 2;
-        }
-    }
+//     if (location == 1) {
+//         if (scoreCardClone[position+1] == playerId){
+//             if (scoreCardClone[position+2] == playerId){
+//                 maxHorScore = 3;
+//             }
+//             else 
+//                 maxHorScore = 2;
+//         }
+//     }
 
-    else if (location == 2) {
-        if (scoreCardClone[position+1] == playerId){
-            if(scoreCardClone[position -1] == playerId){
-                maxHorScore = 3;
-            }
-            else
-                maxHorScore = 2;
-        }
+//     else if (location == 2) {
+//         if (scoreCardClone[position+1] == playerId){
+//             if(scoreCardClone[position -1] == playerId){
+//                 maxHorScore = 3;
+//             }
+//             else
+//                 maxHorScore = 2;
+//         }
 
-    }
+//     }
 
-    else if (location == 0){
+//     else if (location == 0){
 
-        if (scoreCardClone[position-1] == playerId){
-            if(scoreCardClone[position -2] == playerId){
-                maxHorScore = 3;
-            }
-            else
-                maxHorScore = 2;
-        }
-    }
+//         if (scoreCardClone[position-1] == playerId){
+//             if(scoreCardClone[position -2] == playerId){
+//                 maxHorScore = 3;
+//             }
+//             else
+//                 maxHorScore = 2;
+//         }
+//     }
 
-    return maxHorScore;
+//     return maxHorScore;
     
-}
+// }
 
-int scoreVertical(int scoreCardClone, int current){
-   int maxVerScore = 1;
+// int scoreVertical(int scoreCardClone, int current){
+//    int maxVerScore = 1;
 
-    int location = (current+1)%3;
+//     int location = (current+1)%3;
 
-    if (location == 1) {
-        if (scoreCardClone[position+3] == playerId){
-            if (scoreCardClone[position+6] == playerId){
-                maxVerScore = 3;
-            }
-            else 
-                maxVerScore = 2;
-        }
-    }
+//     if (location == 1) {
+//         if (scoreCardClone[position+3] == playerId){
+//             if (scoreCardClone[position+6] == playerId){
+//                 maxVerScore = 3;
+//             }
+//             else 
+//                 maxVerScore = 2;
+//         }
+//     }
 
-    else if (location == 2) {
-        if (scoreCardClone[position+3] == playerId){
-            if(scoreCardClone[position -3] == playerId){
-                maxVerScore = 3;
-            }
-            else
-                maxVerScore = 2;
-        }
-    }
+//     else if (location == 2) {
+//         if (scoreCardClone[position+3] == playerId){
+//             if(scoreCardClone[position -3] == playerId){
+//                 maxVerScore = 3;
+//             }
+//             else
+//                 maxVerScore = 2;
+//         }
+//     }
 
-    else if (location == 0){
+//     else if (location == 0){
 
-        if (scoreCardClone[position-3] == playerId){
-            if(scoreCardClone[position -3] == playerId){
-                maxVerScore = 3;
-            }
-            else
-                maxVerScore = 2;
-        }
-    }
-    return maxVerScore;
-}
+//         if (scoreCardClone[position-3] == playerId){
+//             if(scoreCardClone[position -3] == playerId){
+//                 maxVerScore = 3;
+//             }
+//             else
+//                 maxVerScore = 2;
+//         }
+//     }
+//     return maxVerScore;
+// }
 
-int scoreDiagonal(int scoreCardClone, int current){
+// int scoreDiagonal(int scoreCardClone, int current){
     
-    int maxDiaScore = 1;
-    //temporary hardcoded solution
-    if(current == 0){
-        if(scoreCardClone[position+4] == playerId){
-            if(scoreCardClone[position+8] == playerId)
-                maxDiaScore = 3;
-            else
-                maxDiaScore = 2;
-        }
+//     int maxDiaScore = 1;
+//     //temporary hardcoded solution
+//     if(current == 0){
+//         if(scoreCardClone[position+4] == playerId){
+//             if(scoreCardClone[position+8] == playerId)
+//                 maxDiaScore = 3;
+//             else
+//                 maxDiaScore = 2;
+//         }
         
-    }
-    else if(position == 2){
-        if(scoreCardClone[position+2] == playerId){
-            if(scoreCardClone[position+4] == playerId)
-                maxDiaScore = 3;
-            else
-                maxDiaScore = 2;
-        }
+//     }
+//     else if(position == 2){
+//         if(scoreCardClone[position+2] == playerId){
+//             if(scoreCardClone[position+4] == playerId)
+//                 maxDiaScore = 3;
+//             else
+//                 maxDiaScore = 2;
+//         }
         
-    }
-    else if(position == 4){
-        if(scoreCardClone[position+4] == playerId){
-            if(scoreCardClone[position-4] == playerId)
-                maxDiaScore = 3;
-            else
-                maxDiaScore = 2;
-        }
+//     }
+//     else if(position == 4){
+//         if(scoreCardClone[position+4] == playerId){
+//             if(scoreCardClone[position-4] == playerId)
+//                 maxDiaScore = 3;
+//             else
+//                 maxDiaScore = 2;
+//         }
         
-    }
-    else if(position == 6){
-        if(scoreCardClone[position-2] == playerId){
-            if(scoreCardClone[position-4] == playerId)
-                maxDiaScore = 3;
-            else
-                maxDiaScore = 2;
-        }
+//     }
+//     else if(position == 6){
+//         if(scoreCardClone[position-2] == playerId){
+//             if(scoreCardClone[position-4] == playerId)
+//                 maxDiaScore = 3;
+//             else
+//                 maxDiaScore = 2;
+//         }
         
-    }
-    else if(position == 8){
-        if(scoreCardClone[position-4] == playerId){
-            if(scoreCardClone[position-8] == playerId)
-                maxDiaScore = 3;
-            else
-                maxDiaScore = 2;
-        }
+//     }
+//     else if(position == 8){
+//         if(scoreCardClone[position-4] == playerId){
+//             if(scoreCardClone[position-8] == playerId)
+//                 maxDiaScore = 3;
+//             else
+//                 maxDiaScore = 2;
+//         }
        
+//     }
+//     return maxDiaScore;
+// } 
+
+void loadingCursor(){
+    cout<<"-"<<flush;
+
+    for(int i = 0; i < 3 ; i++){
+        usleep(200000);
+        cout << "\b\\" << flush;
+        usleep(200000);
+        cout << "\b|" << flush;
+        usleep(200000);
+        cout << "\b/" << flush;
+        usleep(200000);
+        cout << "\b-" << flush;
     }
-    return maxDiaScore;
-} 
+    cout << "\b" << flush;
+    
+}
