@@ -6,6 +6,7 @@
 #include <vector>
 #include <unistd.h>
 
+
 using namespace std;
 
 int winnerId = 0;
@@ -53,10 +54,10 @@ void singlePlayerEasy(TicTacToe *players);
 void singlePlayerDifficult(TicTacToe *players);
 int gameOptions();
 void loadingCursor();
-
+bool checkPlayAgain();
 
 int main(){
-    cout<<"------------------TIC TAC TOE------------------"
+    cout<<"\n\n------------------TIC TAC TOE------------------"
             <<"\n\n"<<endl;
 
     TicTacToe *players = new TicTacToe[2];
@@ -64,12 +65,16 @@ int main(){
     gameType = gameOptions();
 
     switch(gameType){
-        case 1: multiplayerGame(players); 
-        case 2: singlePlayerEasy(players);
-        case 3: singlePlayerDifficult(players);
+        case 1: multiplayerGame(players); break;
+        case 2: singlePlayerEasy(players); break;
+        case 3: singlePlayerDifficult(players); break;
     }
-
-
+    
+    
+    if(checkPlayAgain()){
+        
+    }
+        
 
 
     
@@ -668,4 +673,17 @@ void loadingCursor(){
    //cout << "\b" << flush;
     cout<< '\r';
     
+}
+bool checkPlayAgain(){
+    int answer;
+    cout<<"\n\nDo you want to play again? (yes/no): ";
+    cin>>answer;
+    if(answer=="y" || answer=="Y" || answer=="YES" || answer=="yes" )
+        return true;
+    else if (answer=="n" || answer=="N" || answer=="no" || answer=="NO" )
+        return false;
+    else{
+        cout<<"\(please Enter YES or NO\)"<<endl;
+        return checkPlayAgain();
+    }
 }
