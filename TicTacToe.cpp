@@ -55,6 +55,7 @@ void singlePlayerDifficult(TicTacToe *players);
 int gameOptions();
 void loadingCursor();
 bool checkPlayAgain();
+void resetGameData();
 
 int main(){
     cout<<"\n\n------------------TIC TAC TOE------------------"
@@ -686,4 +687,6 @@ bool checkPlayAgain(){
         cout<<"\(please Enter YES or NO\)"<<endl;
         return checkPlayAgain();
     }
+}
+void resetGameData(){
 }
