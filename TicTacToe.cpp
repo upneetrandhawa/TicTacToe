@@ -459,7 +459,8 @@ void singlePlayerEasy(TicTacToe *players){
                 cout<<"Player Computer deciding... ";
                 //usleep(2000000 );
                 loadingCursor();
-                cout<<"Player Computer chose position "<<val<<endl;
+                
+                cout<<"\nPlayer Computer chose position "<<val<<endl;
 
                 
                 players[i].setCurrentPlayer(true);
@@ -664,6 +665,7 @@ void loadingCursor(){
         usleep(200000);
         cout << "\b-" << flush;
     }
-    cout << "\b" << flush;
+   //cout << "\b" << flush;
+    cout<< '\r';
     
 }
