@@ -56,6 +56,7 @@ int gameOptions();
 void loadingCursor();
 bool checkPlayAgain();
 void resetGameData();
+void playGame(TicTacToe *players);
 
 int main(){
     cout<<"\n\n------------------TIC TAC TOE------------------"
@@ -689,4 +690,6 @@ bool checkPlayAgain(){
     }
 }
 void resetGameData(){
+}
+void playGame(TicTacToe *players){
 }
