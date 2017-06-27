@@ -63,26 +63,13 @@ int main(){
             <<"\n\n"<<endl;
 
     TicTacToe *players = new TicTacToe[2];
-
-    gameType = gameOptions();
-
-    switch(gameType){
-        case 1: multiplayerGame(players); break;
-        case 2: singlePlayerEasy(players); break;
-        case 3: singlePlayerDifficult(players); break;
+    bool play = true;
+    
+    while(play){
+        playGame(players);
+        play = checkPlayAgain()
     }
-    
-    
-    if(checkPlayAgain()){
-        
-    }
-        
-
-
-    
-    
-
-return 1;
+ return 1;
 }
 bool checkWinner(TicTacToe *players){
 
@@ -692,4 +679,11 @@ bool checkPlayAgain(){
 void resetGameData(){
 }
 void playGame(TicTacToe *players){
+    gameType = gameOptions();
+
+    switch(gameType){
+        case 1: multiplayerGame(players); break;
+        case 2: singlePlayerEasy(players); break;
+        case 3: singlePlayerDifficult(players); break;
+    }
 }
