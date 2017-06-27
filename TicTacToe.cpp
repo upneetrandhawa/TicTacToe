@@ -67,7 +67,7 @@ int main(){
     
     while(play){
         playGame(players);
-        play = checkPlayAgain()
+        play = checkPlayAgain();
     }
  return 1;
 }
@@ -664,7 +664,7 @@ void loadingCursor(){
     
 }
 bool checkPlayAgain(){
-    int answer;
+    string answer;
     cout<<"\n\nDo you want to play again? (yes/no): ";
     cin>>answer;
     if(answer=="y" || answer=="Y" || answer=="YES" || answer=="yes" )
@@ -672,7 +672,7 @@ bool checkPlayAgain(){
     else if (answer=="n" || answer=="N" || answer=="no" || answer=="NO" )
         return false;
     else{
-        cout<<"\(please Enter YES or NO\)"<<endl;
+        cout<<"(please Enter YES or NO)"<<endl;
         return checkPlayAgain();
     }
 }
