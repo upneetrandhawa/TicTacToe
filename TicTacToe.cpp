@@ -392,7 +392,7 @@ void multiplayerGame(TicTacToe *players){
             }
 
             scoreCard[val-1] = i+1;
-
+            //call updateScoreCard here
             players[i].setCurrentPlayer(true);
 
             if(i==1){
@@ -692,4 +692,7 @@ void playGame(TicTacToe *players){
     }
 }
 void updateScoreCard(int pos, int playerId){
+    int column = (pos-1)%3;//0,1,2
+    int row = (pos-1)/3;//0,1,2
+    //scoreCard[row][column] = playerId;
 }
