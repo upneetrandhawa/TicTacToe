@@ -57,6 +57,7 @@ void loadingCursor();
 bool checkPlayAgain();
 void resetGameData();
 void playGame(TicTacToe *players);
+void updateScoreCard(int pos, int playerId);
 
 int main(){
     cout<<"\n\n------------------TIC TAC TOE------------------"
@@ -689,4 +690,6 @@ void playGame(TicTacToe *players){
         case 2: singlePlayerEasy(players); break;
         case 3: singlePlayerDifficult(players); break;
     }
+}
+void updateScoreCard(int pos, int playerId){
 }
