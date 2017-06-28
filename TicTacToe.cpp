@@ -68,6 +68,7 @@ int main(){
     while(play){
         playGame(players);
         play = checkPlayAgain();
+        resetGameData();
     }
  return 1;
 }
