@@ -677,6 +677,8 @@ bool checkPlayAgain(){
     }
 }
 void resetGameData(){
+    for(int i = 0 ; i < 9 ; i++)
+        scoreCard[i] = 0;
 }
 void playGame(TicTacToe *players){
     gameType = gameOptions();
