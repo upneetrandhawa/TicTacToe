@@ -9,10 +9,14 @@
 
 using namespace std;
 
+#define maxRows 3
+#define maxColumns 3
+
 int winnerId = 0;
 int gameType;
 
 int scoreCard[9] = {0};
+//int scoreCard[maxRows][maxColumns] = {0};
 
 class TicTacToe{
 private:
