@@ -62,6 +62,8 @@ bool checkPlayAgain();
 void resetGameData();
 void playGame(TicTacToe *players);
 void updateScoreCard(int pos, int playerId);
+int getInput(TicTacToe *players, int playerId)
+
 
 int main(){
     cout<<"\n\n------------------TIC TAC TOE------------------"
@@ -700,3 +702,7 @@ void updateScoreCard(int pos, int playerId){
     int row = (pos-1)/3;//0,1,2
     //scoreCard[row][column] = playerId;
 }
+int getInput(TicTacToe *players, int playerId){
+   
+}
+
