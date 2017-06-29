@@ -703,6 +703,16 @@ void updateScoreCard(int pos, int playerId){
     //scoreCard[row][column] = playerId;
 }
 int getInput(TicTacToe *players, int playerId){
-   
+   int val;
+   cout<<"Player"<<i+1<<" "<< players[i].getPlayerName()<<" input an empty position: ";
+   cin >> val;
+    
+   while(cin.fail()){
+        cout << "Error! please enter an Integer value from 1-9" << std::endl;
+        cin.clear();
+        cin.ignore(256,'\n');
+        cin >> val;
+    }
+   return val;
 }
 
