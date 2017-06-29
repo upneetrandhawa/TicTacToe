@@ -387,14 +387,12 @@ void multiplayerGame(TicTacToe *players){
     while (!winner && !noPosition(players)){
 
         for (int i = 0; i<2 && winner != true && !noPosition(players) ; i++){
-            int val;
-            cout<<"Player"<<i+1<<" "<< players[i].getPlayerName()<<" input an empty position: ";
-            cin >> val;
+            
+            int val = getInput(players,i);
 
             while(isOccupied(val)){
                 cout<<"Position already taken!!"<<endl;
-                cout<<"Player"<<i+1<<" "<< players[i].getPlayerName()<<" input an empty position: ";
-                cin >> val;
+                val = getInput(players,i);
             }
 
             scoreCard[val-1] = i+1;
@@ -443,13 +441,11 @@ void singlePlayerEasy(TicTacToe *players){
 
             if(i==0){//for our player
                 
-                cout<<"Player"<<i+1<<" "<< players[i].getPlayerName()<<" input an empty position: ";
-                cin >> val;
+                val = getInput(players,i);
 
                 while(isOccupied(val)){
                     cout<<"Position already taken!!"<<endl;
-                    cout<<"Player"<<i+1<<" "<< players[i].getPlayerName()<<" input an empty position: ";
-                    cin >> val;
+                    val = getInput(players,i);
                 }
                 
                 players[i].setCurrentPlayer(true);
@@ -704,7 +700,7 @@ void updateScoreCard(int pos, int playerId){
 }
 int getInput(TicTacToe *players, int playerId){
    int val;
-   cout<<"Player"<<i+1<<" "<< players[i].getPlayerName()<<" input an empty position: ";
+   cout<<"Player"<<i+1<<" "<< players[playerId].getPlayerName()<<" input an empty position: ";
    cin >> val;
     
    while(cin.fail()){
