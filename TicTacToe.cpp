@@ -62,7 +62,7 @@ bool checkPlayAgain();
 void resetGameData();
 void playGame(TicTacToe *players);
 void updateScoreCard(int pos, int playerId);
-int getInput(TicTacToe *players, int playerId)
+int getInput(TicTacToe *players, int playerId);
 
 
 int main(){
@@ -700,15 +700,14 @@ void updateScoreCard(int pos, int playerId){
 }
 int getInput(TicTacToe *players, int playerId){
    int val;
-   cout<<"Player"<<i+1<<" "<< players[playerId].getPlayerName()<<" input an empty position: ";
+   cout<<"Player"<<playerId+1<<" "<< players[playerId].getPlayerName()<<" input an empty position: ";
    cin >> val;
     
-   while(cin.fail()){
-        cout << "Error! please enter an Integer value from 1-9" << std::endl;
+   while(cin.fail() || val > 9 || val < 1){
+        cout << "Error! please enter an Integer value from 1-9" << endl;
         cin.clear();
         cin.ignore(256,'\n');
-        cin >> val;
+        val = getInput(players, playerId);
     }
    return val;
 }
-
