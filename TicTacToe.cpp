@@ -137,7 +137,62 @@ void printEmptyHorVerPartition(){
     cout<<"|         |         |         |\n";
     cout<<"\033[0m";
 }
+bool checkWinner(TicTacToe *players){
+    int currPlayer;
+        if(players[0].isCurrentPlayer()){
+            currPlayer = 1;
+        }
+        else 
+            currPlayer = 2;
+        
 
+    int horizontalScore = checkHorizontal(currPlayer);
+    if (horizontal == 3){
+        winnerId = currPlayer;
+        return true;
+    }
+    
+    int verticalScore = checkVertical(currPlayer);
+    if (vertical == 3){
+        winnerId = currPlayer;
+        return true;
+    }
+    
+    int diagonalScore = checkDiagonal(currPlayer);
+    if (diagonal == 3){
+        winnerId = currPlayer;
+        return true;
+    }
+        
+}
+int checkHorizontal(int currPlayer){
+    int score = 0;
+    for(int i = 0 ; i < 3; i++){
+        if(scoreCard[i][0] == currPlayer && scoreCard[i][1] == currPlayer && scoreCard[i][2] == currPlayer){
+            score = 3;
+            return score;
+        }
+    }
+}
+int checkVertical(int currPlayer){
+    int score = 0;
+    for(int i = 0 ; i < 3; i++){
+        if(scoreCard[0][i] == currPlayer && scoreCard[0][i] == currPlayer && scoreCard[0][i] == currPlayer){
+            score = 3;
+            return score;
+        }
+    }
+}
+int checkDiagonal(int currPlayer){
+    int score = 0;
+   
+    if(scoreCard[0][0] == currPlayer && scoreCard[1][1] == currPlayer && scoreCard[2][2] == currPlayer
+        || scoreCard[2][0] == currPlayer && scoreCard[1][1] == currPlayer && scoreCard[2][0] == currPlayer){
+        score = 3;
+        return score;
+    }
+    
+}
 bool noPosition(TicTacToe *players){
     bool noPosition = true;
     for (int i = 0 ; i< 9 && noPosition == true ; i++){
